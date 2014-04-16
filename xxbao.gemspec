@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Xxbao::VERSION
   spec.authors       = ["Spirit"]
   spec.email         = ["neverlandxy.naix@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{A commandline-tool to check the xxbao fund income}
+  spec.description   = %q{A commandline-tool to check the xxbao fund income}
+  spec.homepage      = "https://github.com/NaixSpirit/xxbao"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
