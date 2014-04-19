@@ -1,22 +1,25 @@
-﻿# coding: utf-8
+# coding: utf-8
 
 require "xxbao/version"
 require "xxbao/config"
-require "open-uri"
 require "thor"
 require "formatador"
 require "colorize"
+require 'net/http'
 
 module Xxbao
-  Config::Funds.each do |f|
-    open(Config::Base + f[:code] + ".html") do |h|
-      h.each_line do |line|
-        if line =~ Config::Regex
-          puts f[:bao]
-          puts $1, $2, $3
-          break
-        end
+
+  class << self
+    def fetch code, fund
+      uri = URI(@base + "#{code}.shtml")
+      if Net::HTTP.get(uri) =~ @regex
+        fund[:per_million] ||= $1
+        fund[:seven_yield] ||= $2
       end
     end
   end
+
+  @funds.map do |code, fund|
+    Thread.new { fetch(code, fund) }
+  end.each { |t| t.join }
 end
