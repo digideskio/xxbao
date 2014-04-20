@@ -1,1 +1,4 @@
 #!/usr/bin/env ruby
+
+require 'xxbao'
+Xxbao::Base.new.output
