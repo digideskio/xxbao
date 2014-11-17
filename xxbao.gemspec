@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 2.14"
 
   spec.add_dependency "command_line_reporter", "~> 3.3"
+  spec.add_dependency "unicode-display_width", "0.1.1"
 end
