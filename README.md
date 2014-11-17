@@ -10,7 +10,7 @@
 
 install it yourself as:
 
-    $ gem install xxbao
+    $ gem install xxbao -v '~> 0.0.2'
 
 ### Usage
 Just run `xxbao` , you will get the pretty table.
