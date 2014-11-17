@@ -22,7 +22,7 @@ module Xxbao
       @table.add(first_row)
       @funds.values.each { |f| @table.add(fund_row(f)) }
       @table.output
-      puts "来源：http://fund.eastmoney.com/，时间：#{Time.now.strftime("%F %T")}"
+      puts "来源: http://fund.eastmoney.com/, 时间: #{Time.now.strftime("%F %T")}"
     end
 
     private
@@ -79,12 +79,12 @@ module Xxbao
 
       def aligned_cell(str)
         case self.align
-          when 'left'
-            " " * (self.size - str.display_size) + str if self.size > str.display_size
-          when 'right'
-            str + " " * (self.size - str.display_size) if self.size > str.display_size
-          when 'center'
-            " " * ((self.size - str.display_size)/2.0).floor + str + " " * ((self.size - str.display_size)/2.0).ceil
+        when 'left'
+          " " * (self.size - str.display_size) + str if self.size > str.display_size
+        when 'right'
+          str + " " * (self.size - str.display_size) if self.size > str.display_size
+        when 'center'
+          " " * ((self.size - str.display_size) / 2.0).floor + str + " " * ((self.size - str.display_size) / 2.0).ceil
         end
       end
     end
