@@ -5,6 +5,7 @@ require "xxbao/config"
 
 require "net/http"
 require "command_line_reporter"
+require "unicode/display_width"
 
 module Xxbao
   class Base
@@ -21,6 +22,7 @@ module Xxbao
       @table.add(first_row)
       @funds.values.each { |f| @table.add(fund_row(f)) }
       @table.output
+      puts "来源：http://fund.eastmoney.com/，时间：#{Time.now.strftime("%F %T")}"
     end
 
     private
@@ -40,12 +42,12 @@ module Xxbao
       end
 
       def first_row
-        row = CommandLineReporter::Row.new(bold: true)
+        row = CommandLineReporter::Row.new(bold: true, header: true, color: "red")
         [
-          CommandLineReporter::Column.new('Name', align: 'center'),
-          CommandLineReporter::Column.new('Platform', align: 'center'),
-          CommandLineReporter::Column.new('SevenYearRateOfReturn', align: 'center'),
-          CommandLineReporter::Column.new('PerMillionFundNetRevenue', align: 'center')
+          CommandLineReporter::Column.new('名称', align: 'center'),
+          CommandLineReporter::Column.new('平台', align: 'center'),
+          CommandLineReporter::Column.new('七日年化收益率', align: 'center'),
+          CommandLineReporter::Column.new('万份收益', align: 'center')
         ].each { |c| row.add(c) }
         row
       end
@@ -69,5 +71,22 @@ module Xxbao
       end
     end
 
+    class ::CommandLineReporter::Column
+
+      def required_width
+        self.text.to_s.display_size + 2 * self.padding
+      end
+
+      def aligned_cell(str)
+        case self.align
+          when 'left'
+            " " * (self.size - str.display_size) + str if self.size > str.display_size
+          when 'right'
+            str + " " * (self.size - str.display_size) if self.size > str.display_size
+          when 'center'
+            " " * ((self.size - str.display_size)/2.0).floor + str + " " * ((self.size - str.display_size)/2.0).ceil
+        end
+      end
+    end
   end
 end
